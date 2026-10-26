@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+    <name>plg_content_yapcomments</name>
+    <author>drek124</author>
+    <authorUrl>https://github.com/drek124/</authorUrl>
+    <creationDate>2026-10</creationDate>
+    <copyright>(C) 2026 drek124. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.0</version>
+    <description>PLG_CONTENT_YAPCOMMENTS_XML_DESCRIPTION</description>
+    <namespace path="src">Drek124\Plugin\Content\YapComments</namespace>
+    <files>
+        <folder plugin="yapcomments">services</folder>
+        <folder>src</folder>
+        <folder>language</folder>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="category_mode" type="list" default="all" label="PLG_CONTENT_YAPCOMMENTS_CATEGORY_MODE">
+                    <option value="all">PLG_CONTENT_YAPCOMMENTS_CATEGORY_ALL</option>
+                    <option value="include">PLG_CONTENT_YAPCOMMENTS_CATEGORY_INCLUDE</option>
+                    <option value="exclude">PLG_CONTENT_YAPCOMMENTS_CATEGORY_EXCLUDE</option>
+                </field>
+                <field name="categories" type="category" extension="com_content" multiple="true" layout="joomla.form.field.list-fancy-select" showon="category_mode!:all" label="PLG_CONTENT_YAPCOMMENTS_CATEGORIES" />
+                <field name="show_counts" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="PLG_CONTENT_YAPCOMMENTS_SHOW_COUNTS" description="PLG_CONTENT_YAPCOMMENTS_SHOW_COUNTS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="article_field" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="PLG_CONTENT_YAPCOMMENTS_ARTICLE_FIELD" description="PLG_CONTENT_YAPCOMMENTS_ARTICLE_FIELD_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="delete_with_article" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="PLG_CONTENT_YAPCOMMENTS_DELETE_WITH" description="PLG_CONTENT_YAPCOMMENTS_DELETE_WITH_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

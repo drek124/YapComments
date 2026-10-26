@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <inlinehelp button="show"/>
+
+    <fieldset name="general" label="COM_YAPCOMMENTS_CONFIG_GENERAL">
+        <field name="enabled" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_ENABLED" description="COM_YAPCOMMENTS_CONFIG_ENABLED_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="order" type="list" default="newest" label="COM_YAPCOMMENTS_CONFIG_ORDER">
+            <option value="newest">COM_YAPCOMMENTS_SORT_NEWEST</option>
+            <option value="oldest">COM_YAPCOMMENTS_SORT_OLDEST</option>
+            <option value="top">COM_YAPCOMMENTS_SORT_TOP</option>
+        </field>
+        <field name="allow_sort_switch" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_SORT_SWITCH">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="per_page" type="number" default="10" min="1" max="100" filter="integer" label="COM_YAPCOMMENTS_CONFIG_PER_PAGE" description="COM_YAPCOMMENTS_CONFIG_PER_PAGE_DESC" />
+        <field name="max_depth" type="number" default="4" min="0" max="8" filter="integer" label="COM_YAPCOMMENTS_CONFIG_MAX_DEPTH" description="COM_YAPCOMMENTS_CONFIG_MAX_DEPTH_DESC" />
+        <field name="auto_close_days" type="number" default="0" min="0" filter="integer" label="COM_YAPCOMMENTS_CONFIG_AUTO_CLOSE" description="COM_YAPCOMMENTS_CONFIG_AUTO_CLOSE_DESC" />
+        <field name="edit_window" type="number" default="15" min="0" filter="integer" label="COM_YAPCOMMENTS_CONFIG_EDIT_WINDOW" description="COM_YAPCOMMENTS_CONFIG_EDIT_WINDOW_DESC" />
+        <field name="date_format" type="list" default="relative" label="COM_YAPCOMMENTS_CONFIG_DATE_FORMAT">
+            <option value="relative">COM_YAPCOMMENTS_CONFIG_DATE_RELATIVE</option>
+            <option value="absolute">COM_YAPCOMMENTS_CONFIG_DATE_ABSOLUTE</option>
+        </field>
+        <field name="guest_require_email" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="COM_YAPCOMMENTS_CONFIG_GUEST_EMAIL" description="COM_YAPCOMMENTS_CONFIG_GUEST_EMAIL_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="guest_protect_names" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_PROTECT_NAMES" description="COM_YAPCOMMENTS_CONFIG_PROTECT_NAMES_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="appearance" label="COM_YAPCOMMENTS_CONFIG_APPEARANCE">
+        <field name="heading" type="text" default="" label="COM_YAPCOMMENTS_CONFIG_HEADING" description="COM_YAPCOMMENTS_CONFIG_HEADING_DESC" />
+        <field name="theme" type="list" default="auto" label="COM_YAPCOMMENTS_CONFIG_THEME">
+            <option value="auto">COM_YAPCOMMENTS_CONFIG_THEME_AUTO</option>
+            <option value="light">COM_YAPCOMMENTS_CONFIG_THEME_LIGHT</option>
+            <option value="dark">COM_YAPCOMMENTS_CONFIG_THEME_DARK</option>
+        </field>
+        <field name="style" type="list" default="cards" label="COM_YAPCOMMENTS_CONFIG_STYLE">
+            <option value="cards">COM_YAPCOMMENTS_CONFIG_STYLE_CARDS</option>
+            <option value="minimal">COM_YAPCOMMENTS_CONFIG_STYLE_MINIMAL</option>
+            <option value="bubbles">COM_YAPCOMMENTS_CONFIG_STYLE_BUBBLES</option>
+        </field>
+        <field name="density" type="list" default="comfortable" label="COM_YAPCOMMENTS_CONFIG_DENSITY">
+            <option value="comfortable">COM_YAPCOMMENTS_CONFIG_DENSITY_COMFORTABLE</option>
+            <option value="compact">COM_YAPCOMMENTS_CONFIG_DENSITY_COMPACT</option>
+        </field>
+        <field name="accent" type="color" default="#6366f1" format="hex" label="COM_YAPCOMMENTS_CONFIG_ACCENT" />
+        <field name="radius" type="number" default="14" min="0" max="32" filter="integer" label="COM_YAPCOMMENTS_CONFIG_RADIUS" />
+        <field name="font" type="list" default="inherit" label="COM_YAPCOMMENTS_CONFIG_FONT">
+            <option value="inherit">COM_YAPCOMMENTS_CONFIG_FONT_INHERIT</option>
+            <option value="system">COM_YAPCOMMENTS_CONFIG_FONT_SYSTEM</option>
+        </field>
+        <field name="animations" type="list" default="full" label="COM_YAPCOMMENTS_CONFIG_ANIMATIONS" description="COM_YAPCOMMENTS_CONFIG_ANIMATIONS_DESC">
+            <option value="full">COM_YAPCOMMENTS_CONFIG_ANIMATIONS_FULL</option>
+            <option value="subtle">COM_YAPCOMMENTS_CONFIG_ANIMATIONS_SUBTLE</option>
+            <option value="none">COM_YAPCOMMENTS_CONFIG_ANIMATIONS_NONE</option>
+        </field>
+        <field name="avatars" type="list" default="initials" label="COM_YAPCOMMENTS_CONFIG_AVATARS" description="COM_YAPCOMMENTS_CONFIG_AVATARS_DESC">
+            <option value="initials">COM_YAPCOMMENTS_CONFIG_AVATARS_INITIALS</option>
+            <option value="gravatar">COM_YAPCOMMENTS_CONFIG_AVATARS_GRAVATAR</option>
+            <option value="none">COM_YAPCOMMENTS_CONFIG_AVATARS_NONE</option>
+        </field>
+        <field name="gravatar_default" type="list" default="identicon" showon="avatars:gravatar" label="COM_YAPCOMMENTS_CONFIG_GRAVATAR_DEFAULT">
+            <option value="identicon">Identicon</option>
+            <option value="retro">Retro</option>
+            <option value="robohash">Robohash</option>
+            <option value="mp">Mystery person</option>
+        </field>
+        <field name="composer_position" type="list" default="top" label="COM_YAPCOMMENTS_CONFIG_COMPOSER_POSITION">
+            <option value="top">COM_YAPCOMMENTS_CONFIG_POSITION_TOP</option>
+            <option value="bottom">COM_YAPCOMMENTS_CONFIG_POSITION_BOTTOM</option>
+        </field>
+        <field name="show_toolbar" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_SHOW_TOOLBAR">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="show_preview" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_SHOW_PREVIEW">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="show_counter" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_SHOW_COUNTER">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="custom_css" type="textarea" rows="8" filter="raw" default="" label="COM_YAPCOMMENTS_CONFIG_CUSTOM_CSS" description="COM_YAPCOMMENTS_CONFIG_CUSTOM_CSS_DESC" />
+    </fieldset>
+
+    <fieldset name="voting" label="COM_YAPCOMMENTS_CONFIG_VOTING">
+        <field name="votes_enabled" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_VOTES_ENABLED">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="dislikes_enabled" type="radio" layout="joomla.form.field.radio.switcher" default="1" showon="votes_enabled:1" label="COM_YAPCOMMENTS_CONFIG_DISLIKES_ENABLED">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="vote_display" type="list" default="separate" showon="votes_enabled:1" label="COM_YAPCOMMENTS_CONFIG_VOTE_DISPLAY">
+            <option value="separate">COM_YAPCOMMENTS_CONFIG_VOTE_DISPLAY_SEPARATE</option>
+            <option value="score">COM_YAPCOMMENTS_CONFIG_VOTE_DISPLAY_SCORE</option>
+        </field>
+        <field name="self_vote" type="radio" layout="joomla.form.field.radio.switcher" default="0" showon="votes_enabled:1" label="COM_YAPCOMMENTS_CONFIG_SELF_VOTE">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="collapse_threshold" type="number" default="-5" max="0" filter="integer" showon="votes_enabled:1" label="COM_YAPCOMMENTS_CONFIG_COLLAPSE" description="COM_YAPCOMMENTS_CONFIG_COLLAPSE_DESC" />
+    </fieldset>
+
+    <fieldset name="content" label="COM_YAPCOMMENTS_CONFIG_CONTENT">
+        <field name="min_length" type="number" default="3" min="1" filter="integer" label="COM_YAPCOMMENTS_CONFIG_MIN_LENGTH" />
+        <field name="max_length" type="number" default="5000" min="10" filter="integer" label="COM_YAPCOMMENTS_CONFIG_MAX_LENGTH" />
+        <field name="max_links" type="number" default="3" min="0" filter="integer" label="COM_YAPCOMMENTS_CONFIG_MAX_LINKS" description="COM_YAPCOMMENTS_CONFIG_MAX_LINKS_DESC" />
+        <field name="link_rel" type="list" default="ugc nofollow" label="COM_YAPCOMMENTS_CONFIG_LINK_REL" description="COM_YAPCOMMENTS_CONFIG_LINK_REL_DESC">
+            <option value="ugc nofollow">ugc nofollow</option>
+            <option value="ugc">ugc</option>
+            <option value="nofollow">nofollow</option>
+            <option value="">COM_YAPCOMMENTS_CONFIG_LINK_REL_NONE</option>
+        </field>
+        <field name="internal_follow" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_INTERNAL_FOLLOW" description="COM_YAPCOMMENTS_CONFIG_INTERNAL_FOLLOW_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="link_blank" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_LINK_BLANK">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="domain_mode" type="list" default="none" label="COM_YAPCOMMENTS_CONFIG_DOMAIN_MODE">
+            <option value="none">COM_YAPCOMMENTS_CONFIG_DOMAIN_NONE</option>
+            <option value="allow">COM_YAPCOMMENTS_CONFIG_DOMAIN_ALLOW</option>
+            <option value="block">COM_YAPCOMMENTS_CONFIG_DOMAIN_BLOCK</option>
+        </field>
+        <field name="domain_list" type="textarea" rows="4" default="" showon="domain_mode!:none" label="COM_YAPCOMMENTS_CONFIG_DOMAIN_LIST" description="COM_YAPCOMMENTS_CONFIG_DOMAIN_LIST_DESC" />
+        <field name="badwords" type="textarea" rows="4" default="" label="COM_YAPCOMMENTS_CONFIG_BADWORDS" description="COM_YAPCOMMENTS_CONFIG_BADWORDS_DESC" />
+        <field name="badwords_action" type="list" default="censor" label="COM_YAPCOMMENTS_CONFIG_BADWORDS_ACTION">
+            <option value="censor">COM_YAPCOMMENTS_CONFIG_BADWORDS_CENSOR</option>
+            <option value="moderate">COM_YAPCOMMENTS_CONFIG_BADWORDS_MODERATE</option>
+            <option value="reject">COM_YAPCOMMENTS_CONFIG_BADWORDS_REJECT</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="security" label="COM_YAPCOMMENTS_CONFIG_SECURITY">
+        <field name="captcha" type="plugins" folder="captcha" default="" label="COM_YAPCOMMENTS_CONFIG_CAPTCHA" description="COM_YAPCOMMENTS_CONFIG_CAPTCHA_DESC">
+            <option value="">JOPTION_DO_NOT_USE</option>
+        </field>
+        <field name="captcha_guests_only" type="radio" layout="joomla.form.field.radio.switcher" default="1" showon="captcha!:" label="COM_YAPCOMMENTS_CONFIG_CAPTCHA_GUESTS">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="honeypot" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_HONEYPOT" description="COM_YAPCOMMENTS_CONFIG_HONEYPOT_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="min_submit_time" type="number" default="3" min="0" filter="integer" label="COM_YAPCOMMENTS_CONFIG_MIN_TIME" description="COM_YAPCOMMENTS_CONFIG_MIN_TIME_DESC" />
+        <field name="flood_interval" type="number" default="30" min="0" filter="integer" label="COM_YAPCOMMENTS_CONFIG_FLOOD" description="COM_YAPCOMMENTS_CONFIG_FLOOD_DESC" />
+        <field name="hourly_limit" type="number" default="20" min="0" filter="integer" label="COM_YAPCOMMENTS_CONFIG_HOURLY" description="COM_YAPCOMMENTS_CONFIG_HOURLY_DESC" />
+        <field name="duplicate_check" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_DUPLICATE">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="hold_links" type="number" default="0" min="0" filter="integer" label="COM_YAPCOMMENTS_CONFIG_HOLD_LINKS" description="COM_YAPCOMMENTS_CONFIG_HOLD_LINKS_DESC" />
+        <field name="ip_mode" type="list" default="anonymize" label="COM_YAPCOMMENTS_CONFIG_IP_MODE" description="COM_YAPCOMMENTS_CONFIG_IP_MODE_DESC">
+            <option value="anonymize">COM_YAPCOMMENTS_CONFIG_IP_ANONYMIZE</option>
+            <option value="hash">COM_YAPCOMMENTS_CONFIG_IP_HASH</option>
+            <option value="full">COM_YAPCOMMENTS_CONFIG_IP_FULL</option>
+            <option value="none">COM_YAPCOMMENTS_CONFIG_IP_NONE</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="notifications" label="COM_YAPCOMMENTS_CONFIG_NOTIFICATIONS">
+        <field name="notify_admins" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="COM_YAPCOMMENTS_CONFIG_NOTIFY_ADMINS">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="notify_emails" type="textarea" rows="3" default="" showon="notify_admins:1" label="COM_YAPCOMMENTS_CONFIG_NOTIFY_EMAILS" description="COM_YAPCOMMENTS_CONFIG_NOTIFY_EMAILS_DESC" />
+        <field name="notify_mode" type="list" default="pending" showon="notify_admins:1" label="COM_YAPCOMMENTS_CONFIG_NOTIFY_MODE">
+            <option value="pending">COM_YAPCOMMENTS_CONFIG_NOTIFY_PENDING</option>
+            <option value="all">COM_YAPCOMMENTS_CONFIG_NOTIFY_ALL</option>
+        </field>
+        <field name="notify_reply" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_NOTIFY_REPLY" description="COM_YAPCOMMENTS_CONFIG_NOTIFY_REPLY_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="seo" label="COM_YAPCOMMENTS_CONFIG_SEO">
+        <field name="microdata" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_MICRODATA" description="COM_YAPCOMMENTS_CONFIG_MICRODATA_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="crawlable_pagination" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_YAPCOMMENTS_CONFIG_CRAWLABLE" description="COM_YAPCOMMENTS_CONFIG_CRAWLABLE_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+        <field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" validate="rules" filter="rules" component="com_yapcomments" section="component" />
+    </fieldset>
+</config>

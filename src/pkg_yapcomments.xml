@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+    <name>pkg_yapcomments</name>
+    <packagename>yapcomments</packagename>
+    <author>drek124</author>
+    <authorUrl>https://github.com/drek124/</authorUrl>
+    <packager>drek124</packager>
+    <packagerurl>https://github.com/drek124/</packagerurl>
+    <creationDate>2026-10</creationDate>
+    <copyright>(C) 2026 drek124. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.0</version>
+    <description>PKG_YAPCOMMENTS_XML_DESCRIPTION</description>
+    <scriptfile>pkg_script.php</scriptfile>
+    <blockChildUninstall>true</blockChildUninstall>
+    <files folder="packages">
+        <file type="component" id="com_yapcomments">com_yapcomments.zip</file>
+        <file type="plugin" id="yapcomments" group="content">plg_content_yapcomments.zip</file>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/pkg_yapcomments.sys.ini</language>
+        <language tag="ar-AA">ar-AA/pkg_yapcomments.sys.ini</language>
+    </languages>
+</extension>

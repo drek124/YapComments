@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset name="main">
+        <field name="id" type="hidden" default="0" readonly="true" />
+        <field name="body" type="textarea" rows="12" required="true" filter="raw" class="font-monospace" label="COM_YAPCOMMENTS_FIELD_BODY" description="COM_YAPCOMMENTS_FIELD_BODY_DESC" />
+    </fieldset>
+
+    <fieldset name="details">
+        <field name="state" type="list" default="1" class="form-select-color-state" filter="integer" label="JSTATUS">
+            <option value="1">COM_YAPCOMMENTS_STATE_PUBLISHED</option>
+            <option value="0">COM_YAPCOMMENTS_STATE_PENDING</option>
+            <option value="-1">COM_YAPCOMMENTS_STATE_SPAM</option>
+            <option value="-2">JTRASHED</option>
+        </field>
+        <field name="pinned" type="radio" layout="joomla.form.field.radio.switcher" default="0" filter="integer" label="COM_YAPCOMMENTS_FIELD_PINNED">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="name" type="text" maxlength="100" label="COM_YAPCOMMENTS_FIELD_NAME" />
+        <field name="email" type="email" maxlength="150" validate="email" label="COM_YAPCOMMENTS_FIELD_EMAIL" />
+        <field name="user_id" type="user" label="COM_YAPCOMMENTS_FIELD_USER" filter="integer" />
+        <field name="created" type="calendar" translateformat="true" showtime="true" filter="user_utc" label="JGLOBAL_CREATED_DATE" />
+        <field name="item_title" type="text" readonly="true" label="COM_YAPCOMMENTS_FIELD_ITEM" />
+        <field name="context" type="text" readonly="true" label="COM_YAPCOMMENTS_FIELD_CONTEXT" />
+        <field name="item_id" type="text" readonly="true" filter="integer" label="COM_YAPCOMMENTS_FIELD_ITEM_ID" />
+        <field name="ip" type="text" readonly="true" label="COM_YAPCOMMENTS_FIELD_IP" />
+        <field name="likes" type="number" min="0" filter="integer" label="COM_YAPCOMMENTS_FIELD_LIKES" />
+        <field name="dislikes" type="number" min="0" filter="integer" label="COM_YAPCOMMENTS_FIELD_DISLIKES" />
+    </fieldset>
+</form>

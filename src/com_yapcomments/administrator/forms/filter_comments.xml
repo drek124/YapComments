@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field name="search" type="text" inputmode="search" label="COM_YAPCOMMENTS_FILTER_SEARCH" description="COM_YAPCOMMENTS_FILTER_SEARCH_DESC" hint="JSEARCH_FILTER" />
+        <field name="state" type="list" onchange="this.form.submit();" label="JSTATUS">
+            <option value="">COM_YAPCOMMENTS_FILTER_STATE_DEFAULT</option>
+            <option value="1">COM_YAPCOMMENTS_STATE_PUBLISHED</option>
+            <option value="0">COM_YAPCOMMENTS_STATE_PENDING</option>
+            <option value="-1">COM_YAPCOMMENTS_STATE_SPAM</option>
+            <option value="-2">JTRASHED</option>
+            <option value="*">JALL</option>
+        </field>
+        <field name="pinned" type="list" onchange="this.form.submit();" label="COM_YAPCOMMENTS_FIELD_PINNED">
+            <option value="">COM_YAPCOMMENTS_FILTER_PINNED</option>
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field name="item_id" type="number" min="0" onchange="this.form.submit();" label="COM_YAPCOMMENTS_FIELD_ITEM_ID" hint="COM_YAPCOMMENTS_FIELD_ITEM_ID" />
+    </fields>
+    <fields name="list">
+        <field name="fullordering" type="list" onchange="this.form.submit();" default="a.created DESC" label="JGLOBAL_SORT_BY">
+            <option value="">JGLOBAL_SORT_BY</option>
+            <option value="a.created ASC">JDATE_ASC</option>
+            <option value="a.created DESC">JDATE_DESC</option>
+            <option value="a.state ASC">JSTATUS_ASC</option>
+            <option value="a.state DESC">JSTATUS_DESC</option>
+            <option value="a.likes DESC">COM_YAPCOMMENTS_SORT_LIKES_DESC</option>
+            <option value="a.dislikes DESC">COM_YAPCOMMENTS_SORT_DISLIKES_DESC</option>
+            <option value="a.item_title ASC">COM_YAPCOMMENTS_SORT_ITEM_ASC</option>
+            <option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
+            <option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
+        </field>
+        <field name="limit" type="limitbox" default="25" onchange="this.form.submit();" label="JGLOBAL_LIST_LIMIT" />
+    </fields>
+</form>

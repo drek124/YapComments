@@ -1,0 +1,189 @@
+/*! YapComments 1.0.0 administrator styles - drek124 */
+
+.yap-admin {
+  --ya-accent: #6366f1;
+  --ya-link: #4f46e5;
+  --ya-surface: #fff;
+  --ya-text: #1f2937;
+  --ya-muted: #6b7280;
+  --ya-border: rgba(0, 0, 0, .08);
+  --ya-track: rgba(99, 102, 241, .14);
+  --ya-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  --ya-shadow-hover: 0 12px 24px -12px rgba(0, 0, 0, .25);
+  color: var(--ya-text);
+}
+
+/* Atum dark mode (explicit, or "follow OS" resolved by the template script). */
+[data-bs-theme="dark"] .yap-admin,
+[data-color-scheme="dark"] .yap-admin {
+  --ya-link: #a5b4fc;
+  --ya-surface: #1c2230;
+  --ya-text: #e5e7eb;
+  --ya-muted: #9ca3af;
+  --ya-border: rgba(255, 255, 255, .08);
+  --ya-track: rgba(129, 140, 248, .18);
+  --ya-shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  --ya-shadow-hover: 0 12px 28px -12px rgba(0, 0, 0, .7);
+}
+
+.yap-admin a:not(.btn):not(.yap-admin__card) { color: var(--ya-link); }
+.yap-admin h3, .yap-admin strong { color: var(--ya-text); }
+.yap-admin p { color: var(--ya-text); }
+
+.yap-admin__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: rgba(255, 255, 255, .16);
+  color: #fff !important;
+  font-weight: 600;
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+  transition: background .2s, transform .2s;
+}
+
+.yap-admin__pill:hover { background: rgba(255, 255, 255, .28); transform: translateY(-1px); }
+
+.yap-admin__hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-end: 1.5rem;
+  padding: 1.75rem 2rem;
+  border-radius: 18px;
+  color: #fff;
+  background: radial-gradient(120% 140% at 0% 0%, #818cf8 0%, #6366f1 35%, #a855f7 75%, #ec4899 100%);
+  box-shadow: 0 18px 40px -20px rgba(99, 102, 241, .8);
+  animation: ya-in .5s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.yap-admin__title { margin: 0; color: #fff; font-weight: 800; letter-spacing: -.02em; }
+.yap-admin__subtitle { margin: .25rem 0 0; opacity: .85; }
+
+.yap-admin__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-block-end: 1.5rem;
+}
+
+.yap-admin__card {
+  display: grid;
+  gap: .15rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: 14px;
+  background: var(--ya-surface);
+  border: 1px solid var(--ya-border);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--ya-shadow);
+  transition: transform .2s cubic-bezier(.2, .8, .2, 1), box-shadow .2s;
+  animation: ya-in .5s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--i) * 60ms);
+}
+
+.yap-admin__card:hover { transform: translateY(-3px); box-shadow: var(--ya-shadow-hover); color: inherit; }
+
+.yap-admin__card-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  margin-block-end: .4rem;
+  border-radius: 10px;
+  color: var(--c, var(--ya-accent));
+  background: color-mix(in srgb, var(--c, var(--ya-accent)) 14%, transparent);
+}
+
+.yap-admin__card--published { --c: #10b981; }
+.yap-admin__card--pending { --c: #f59e0b; }
+.yap-admin__card--spam { --c: #ef4444; }
+.yap-admin__card--today { --c: #0ea5e9; }
+.yap-admin__card--likes { --c: #ec4899; }
+
+.yap-admin__card-value { color: var(--ya-text); font-size: 1.9rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.yap-admin__card-label { color: var(--ya-muted); font-size: .85rem; }
+
+.yap-admin__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.yap-admin__panel {
+  color: var(--ya-text);
+  box-shadow: var(--ya-shadow);
+  padding: 1.25rem 1.4rem;
+  border-radius: 14px;
+  background: var(--ya-surface);
+  border: 1px solid var(--ya-border);
+  animation: ya-in .5s .2s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.yap-admin__panel--wide { grid-column: 1 / -1; }
+.yap-admin__panel h3 { margin: 0 0 1rem; font-size: 1.05rem; font-weight: 700; }
+
+.yap-admin__chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  block-size: 160px;
+  padding-block-start: 1.2rem;
+}
+
+.yap-admin__bar {
+  position: relative;
+  flex: 1;
+  block-size: max(var(--h), 3px);
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, #a855f7, #6366f1);
+  opacity: .85;
+  transform-origin: bottom;
+  animation: ya-grow .7s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--i) * 18ms + .2s);
+  transition: opacity .2s;
+}
+
+.yap-admin__bar:hover { opacity: 1; }
+.yap-admin__bar.is-zero { background: var(--ya-track); opacity: 1; }
+
+.yap-admin__bar span {
+  position: absolute;
+  inset-block-end: 100%;
+  inset-inline: 0;
+  font-size: .65rem;
+  text-align: center;
+  color: var(--ya-muted);
+}
+
+.yap-admin__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .85rem; }
+.yap-admin__list li { padding-block-end: .85rem; border-block-end: 1px solid var(--ya-border); }
+.yap-admin__list li:last-child { border: 0; padding: 0; }
+.yap-admin__list p { margin: .3rem 0 0; }
+.yap-admin__meta { font-size: .82rem; color: var(--ya-muted); }
+.yap-admin__actions { display: flex; flex-wrap: wrap; gap: .35rem; margin-block-start: .5rem; }
+.yap-admin__actions form { margin: 0; }
+
+.yap-admin__top { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: .5rem; }
+.yap-admin__top li { display: flex; justify-content: space-between; gap: .5rem; }
+
+.yap-admin__empty { color: var(--ya-muted); margin: 0; }
+.yap-admin__footer { margin-block-start: 1.5rem; text-align: center; color: var(--ya-muted); font-size: .85rem; }
+
+.yap-admin-table__author { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-block-end: .2rem; font-weight: 400; }
+.yap-admin-table__body { display: block; font-weight: 400; }
+.yap-admin-preview pre { background: #0f1320; color: #e3e8f4; padding: .75rem 1rem; border-radius: 8px; }
+.yap-admin-preview blockquote { border-inline-start: 3px solid var(--ya-accent); padding-inline-start: .75rem; color: var(--ya-muted); }
+.yap-admin-preview img { max-inline-size: 100%; }
+
+@keyframes ya-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes ya-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .yap-admin * { animation: none !important; transition: none !important; }
+}

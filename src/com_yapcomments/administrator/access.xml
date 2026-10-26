@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<access component="com_yapcomments">
+    <section name="component">
+        <action name="core.admin" title="JACTION_ADMIN" />
+        <action name="core.options" title="JACTION_OPTIONS" />
+        <action name="core.manage" title="JACTION_MANAGE" />
+        <action name="core.edit" title="JACTION_EDIT" />
+        <action name="core.edit.state" title="JACTION_EDITSTATE" />
+        <action name="core.delete" title="JACTION_DELETE" />
+
+        <action name="yapcomments.view" title="COM_YAPCOMMENTS_ACTION_VIEW" description="COM_YAPCOMMENTS_ACTION_VIEW_DESC" />
+        <action name="yapcomments.post" title="COM_YAPCOMMENTS_ACTION_POST" description="COM_YAPCOMMENTS_ACTION_POST_DESC" />
+        <action name="yapcomments.reply" title="COM_YAPCOMMENTS_ACTION_REPLY" description="COM_YAPCOMMENTS_ACTION_REPLY_DESC" />
+        <action name="yapcomments.autoapprove" title="COM_YAPCOMMENTS_ACTION_AUTOAPPROVE" description="COM_YAPCOMMENTS_ACTION_AUTOAPPROVE_DESC" />
+        <action name="yapcomments.vote" title="COM_YAPCOMMENTS_ACTION_VOTE" description="COM_YAPCOMMENTS_ACTION_VOTE_DESC" />
+        <action name="yapcomments.markdown" title="COM_YAPCOMMENTS_ACTION_MARKDOWN" description="COM_YAPCOMMENTS_ACTION_MARKDOWN_DESC" />
+        <action name="yapcomments.links" title="COM_YAPCOMMENTS_ACTION_LINKS" description="COM_YAPCOMMENTS_ACTION_LINKS_DESC" />
+        <action name="yapcomments.images" title="COM_YAPCOMMENTS_ACTION_IMAGES" description="COM_YAPCOMMENTS_ACTION_IMAGES_DESC" />
+        <action name="yapcomments.code" title="COM_YAPCOMMENTS_ACTION_CODE" description="COM_YAPCOMMENTS_ACTION_CODE_DESC" />
+        <action name="yapcomments.edit.own" title="COM_YAPCOMMENTS_ACTION_EDIT_OWN" description="COM_YAPCOMMENTS_ACTION_EDIT_OWN_DESC" />
+        <action name="yapcomments.delete.own" title="COM_YAPCOMMENTS_ACTION_DELETE_OWN" description="COM_YAPCOMMENTS_ACTION_DELETE_OWN_DESC" />
+        <action name="yapcomments.moderate" title="COM_YAPCOMMENTS_ACTION_MODERATE" description="COM_YAPCOMMENTS_ACTION_MODERATE_DESC" />
+        <action name="yapcomments.bypass.limits" title="COM_YAPCOMMENTS_ACTION_BYPASS" description="COM_YAPCOMMENTS_ACTION_BYPASS_DESC" />
+    </section>
+</access>
