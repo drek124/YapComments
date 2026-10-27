@@ -1,5 +1,5 @@
 /*!
- * YapComments 1.0.0 by drek124 - https://github.com/drek124/
+ * YapComments 1.0.1 by drek124 - https://github.com/drek124/
  * Progressive enhancement for the server-rendered comment threads.
  */
 
@@ -59,8 +59,10 @@ class YapEditor {
     textarea.parentNode.insertBefore(this.wrap, textarea);
     this.wrap.append(this.layer, textarea);
     textarea.classList.add('yap-hl-input');
-    if (!textarea.hasAttribute('dir')) textarea.setAttribute('dir', 'auto');
-    this.layer.setAttribute('dir', textarea.getAttribute('dir'));
+    // dir="auto" resolves an empty field to LTR, which strands the placeholder on the
+    // wrong side of RTL pages, so it is only applied once there is text (see render).
+    this.autoDir = !textarea.hasAttribute('dir');
+    if (!this.autoDir) this.layer.setAttribute('dir', textarea.getAttribute('dir'));
 
     textarea.addEventListener('input', () => this.render());
     textarea.addEventListener('scroll', () => this.syncScroll());
@@ -100,6 +102,13 @@ class YapEditor {
   render() {
     if (!this.layer) return;
     const value = this.ta.value;
+    if (this.autoDir && this.ta.hasAttribute('dir') !== (value !== '')) {
+      [this.ta, this.layer].forEach((el) => {
+        if (value) el.setAttribute('dir', 'auto');
+        else el.removeAttribute('dir');
+      });
+      this.syncBox();
+    }
     // A trailing newline needs something after it to occupy the last line.
     this.layer.innerHTML = this.blocks(value) + (value.endsWith('\n') || value === '' ? ' ' : '');
     this.fixItalics();
