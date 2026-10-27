@@ -1,5 +1,5 @@
 /*!
- * YapComments 1.0.1 by drek124 - https://github.com/drek124/
+ * YapComments 1.0.2 by drek124 - https://github.com/drek124/
  * Progressive enhancement for the server-rendered comment threads.
  */
 
@@ -751,10 +751,10 @@ class YapThread {
     const start = ta.selectionStart;
     const end = ta.selectionEnd;
     const sel = ta.value.slice(start, end);
-    const wrap = (l, r = l, placeholder = '') => {
-      const inner = sel || placeholder;
-      ed.replace(start, end, l + inner + r);
-      if (!sel && placeholder) ta.setSelectionRange(start + l.length, start + l.length + inner.length);
+    // Keeps the selection (or the bare caret) between the markers, ready to type into.
+    const wrap = (l, r = l) => {
+      ed.replace(start, end, l + sel + r);
+      ta.setSelectionRange(start + l.length, start + l.length + sel.length);
     };
     const prefix = (fn) => {
       const lineStart = ta.value.lastIndexOf('\n', start - 1) + 1;
@@ -764,13 +764,13 @@ class YapThread {
     };
 
     switch (tool) {
-      case 'bold': wrap('**', '**', 'bold'); break;
-      case 'italic': wrap('*', '*', 'italic'); break;
-      case 'strike': wrap('~~', '~~', 'text'); break;
-      case 'spoiler': wrap('||', '||', 'spoiler'); break;
+      case 'bold': wrap('**'); break;
+      case 'italic': wrap('*'); break;
+      case 'strike': wrap('~~'); break;
+      case 'spoiler': wrap('||'); break;
       case 'code':
         if (sel.includes('\n')) wrap('```\n', '\n```');
-        else wrap('`', '`', 'code');
+        else wrap('`');
         break;
       case 'quote': prefix(() => '> '); break;
       case 'list': prefix(() => '- '); break;

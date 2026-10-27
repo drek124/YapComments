@@ -1,0 +1,43 @@
+name: Release package
+
+# Builds the installable Joomla package with build.php and attaches it to the release.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: zip, simplexml
+          tools: none
+
+      - name: Check tag matches manifest version
+        run: |
+          manifest=$(php -r 'echo simplexml_load_file("src/pkg_yapcomments.xml")->version;')
+          tag="${TAG#v}"
+          if [ "$tag" != "$manifest" ]; then
+            echo "::error::Release tag $TAG does not match pkg_yapcomments.xml version $manifest"
+            exit 1
+          fi
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+
+      - name: Build package
+        run: php build.php
+
+      - name: Attach to release
+        run: gh release upload "$TAG" dist/pkg_yapcomments_v*.zip --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
