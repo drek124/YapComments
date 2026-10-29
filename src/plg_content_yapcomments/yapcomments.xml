@@ -6,7 +6,7 @@
     <creationDate>2026-10</creationDate>
     <copyright>(C) 2026 drek124. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <description>PLG_CONTENT_YAPCOMMENTS_XML_DESCRIPTION</description>
     <namespace path="src">Drek124\Plugin\Content\YapComments</namespace>
     <files>

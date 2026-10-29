@@ -4,6 +4,7 @@
  * Builds the installable package: php build.php
  *
  * Output: dist/pkg_yapcomments_v<version>.zip (component + content plugin)
+ *         updates/pkg_yapcomments.xml (Joomla update feed for that zip)
  *
  * @package     YapComments
  * @author      drek124 <https://github.com/drek124/>
@@ -71,3 +72,41 @@ foreach (glob($tmp . '/*') as $file) {
 rmdir($tmp);
 
 echo 'Built ' . $package . ' (' . round(filesize($package) / 1024, 1) . " KB)\n";
+
+/*
+ * Update feed read by Joomla's updater (see <updateservers> in pkg_yapcomments.xml).
+ * The sha512 must match the zip attached to the release, so the release workflow
+ * regenerates this from the zip it uploads and commits it to main.
+ */
+$repo    = 'https://github.com/drek124/YapComments';
+$feed    = $root . '/updates/pkg_yapcomments.xml';
+$file    = basename($package);
+$sha512  = hash_file('sha512', $package);
+
+@mkdir(dirname($feed), 0755, true);
+
+file_put_contents($feed, <<<XML
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+    <update>
+        <name>YapComments</name>
+        <description>YapComments package</description>
+        <element>pkg_yapcomments</element>
+        <type>package</type>
+        <version>{$version}</version>
+        <client>site</client>
+        <infourl title="YapComments {$version}">{$repo}/releases/tag/v{$version}</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">{$repo}/releases/download/v{$version}/{$file}</downloadurl>
+        </downloads>
+        <sha512>{$sha512}</sha512>
+        <targetplatform name="joomla" version="(5|6)\..*"/>
+        <php_minimum>8.1</php_minimum>
+        <maintainer>drek124</maintainer>
+        <maintainerurl>https://github.com/drek124/</maintainerurl>
+    </update>
+</updates>
+
+XML);
+
+echo 'Wrote ' . $feed . "\n";

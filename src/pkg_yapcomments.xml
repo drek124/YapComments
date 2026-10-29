@@ -9,10 +9,13 @@
     <creationDate>2026-10</creationDate>
     <copyright>(C) 2026 drek124. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <description>PKG_YAPCOMMENTS_XML_DESCRIPTION</description>
     <scriptfile>pkg_script.php</scriptfile>
     <blockChildUninstall>true</blockChildUninstall>
+    <updateservers>
+        <server type="extension" priority="1" name="YapComments Updates">https://raw.githubusercontent.com/drek124/YapComments/main/updates/pkg_yapcomments.xml</server>
+    </updateservers>
     <files folder="packages">
         <file type="component" id="com_yapcomments">com_yapcomments.zip</file>
         <file type="plugin" id="yapcomments" group="content">plg_content_yapcomments.zip</file>

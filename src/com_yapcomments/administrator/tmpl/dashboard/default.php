@@ -137,6 +137,6 @@ $excerpt = static fn (string $text): string => htmlspecialchars(mb_strimwidth(tr
     </div>
 
     <footer class="yap-admin__footer">
-        YapComments 1.0.2 · <?php echo Text::_('COM_YAPCOMMENTS_BY'); ?> <a href="https://github.com/drek124/" target="_blank" rel="noopener">drek124</a>
+        YapComments 1.0.3 · <?php echo Text::_('COM_YAPCOMMENTS_BY'); ?> <a href="https://github.com/drek124/" target="_blank" rel="noopener">drek124</a>
     </footer>
 </div>

@@ -1,6 +1,7 @@
 name: Release package
 
-# Builds the installable Joomla package with build.php and attaches it to the release.
+# Builds the installable Joomla package with build.php, attaches it to the release
+# and publishes the matching update feed (updates/pkg_yapcomments.xml) to main.
 on:
   release:
     types: [published]
@@ -41,3 +42,24 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
+
+      # The feed's sha512 belongs to the zip uploaded above, so publish it only now.
+      - name: Publish update feed to main
+        run: |
+          cp updates/pkg_yapcomments.xml "$RUNNER_TEMP/feed.xml"
+          git fetch origin main
+          git checkout -B main origin/main
+          mkdir -p updates
+          cp "$RUNNER_TEMP/feed.xml" updates/pkg_yapcomments.xml
+          git add updates/pkg_yapcomments.xml
+          if git diff --cached --quiet; then
+            echo "Update feed unchanged"
+            exit 0
+          fi
+          git -c user.name="$AUTHOR" -c user.email="$AUTHOR_ID+$AUTHOR@users.noreply.github.com" \
+            commit -m "Update feed for $TAG"
+          git push origin main
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          AUTHOR: ${{ github.event.release.author.login }}
+          AUTHOR_ID: ${{ github.event.release.author.id }}
