@@ -51,6 +51,8 @@
             <option value="compact">COM_YAPCOMMENTS_CONFIG_DENSITY_COMPACT</option>
         </field>
         <field name="accent" type="color" default="#6366f1" format="hex" label="COM_YAPCOMMENTS_CONFIG_ACCENT" />
+        <field name="accent_2" type="color" default="" format="hex" label="COM_YAPCOMMENTS_CONFIG_ACCENT_2" description="COM_YAPCOMMENTS_CONFIG_ACCENT_2_DESC" />
+        <field name="card_bg" type="color" default="" format="rgba" label="COM_YAPCOMMENTS_CONFIG_CARD_BG" description="COM_YAPCOMMENTS_CONFIG_CARD_BG_DESC" />
         <field name="radius" type="number" default="14" min="0" max="32" filter="integer" label="COM_YAPCOMMENTS_CONFIG_RADIUS" />
         <field name="font" type="list" default="inherit" label="COM_YAPCOMMENTS_CONFIG_FONT">
             <option value="inherit">COM_YAPCOMMENTS_CONFIG_FONT_INHERIT</option>

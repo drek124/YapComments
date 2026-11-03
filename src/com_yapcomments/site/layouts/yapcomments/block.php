@@ -38,6 +38,20 @@ $classes = [
 ];
 
 $style = '--yap-accent:' . $accent . ';--yap-radius:' . (int) $params->get('radius', 14) . 'px';
+
+// Optional colours: left blank they fall back to the stylesheet's automatic values.
+$hex  = '/^#[0-9a-f]{3,8}$/i';
+$rgba = '/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*(,\s*(0|1|0?\.\d+|\d{1,3}%)\s*)?\)$/i';
+
+$accent2 = trim((string) $params->get('accent_2', ''));
+if (preg_match($hex, $accent2)) {
+    $style .= ';--yap-accent-2:' . $accent2;
+}
+
+$cardBg = trim((string) $params->get('card_bg', ''));
+if (preg_match($hex, $cardBg) || preg_match($rgba, $cardBg)) {
+    $style .= ';--yap-card-bg:' . $cardBg;
+}
 ?>
 <section id="comments" class="<?php echo implode(' ', array_filter($classes)); ?>"
     data-theme="<?php echo htmlspecialchars($params->get('theme', 'auto'), ENT_QUOTES); ?>"

@@ -20,6 +20,8 @@
   --yap-warn: #f59e0b;
   --yap-accent-soft: color-mix(in srgb, var(--yap-accent) 12%, transparent);
   --yap-accent-strong: color-mix(in srgb, var(--yap-accent) 82%, #000);
+  --yap-gradient-end: var(--yap-accent-2, color-mix(in srgb, var(--yap-accent) 70%, #ec4899));
+  --yap-container-bg: var(--yap-card-bg, var(--yap-surface));
   --yap-gap: 16px;
   --yap-pad: 18px 20px;
   --yap-indent: 44px;
@@ -176,7 +178,7 @@
   position: relative;
   overflow: hidden;
   color: #fff;
-  background: linear-gradient(135deg, var(--yap-accent), color-mix(in srgb, var(--yap-accent) 70%, #ec4899));
+  background: linear-gradient(135deg, var(--yap-accent), var(--yap-gradient-end));
   box-shadow: 0 6px 18px -8px var(--yap-accent);
 }
 
@@ -235,7 +237,7 @@
 .yap-composer {
   padding: 16px;
   border-radius: var(--yap-radius);
-  background: var(--yap-surface);
+  background: var(--yap-container-bg);
   border: 1px solid var(--yap-border);
   box-shadow: var(--yap-shadow);
   transition: box-shadow .3s, border-color .3s;
@@ -898,7 +900,7 @@
 /* ---------------------------------------------------------------- styles */
 .yap--cards .yap-list > .yap-comment {
   border-radius: var(--yap-radius);
-  background: var(--yap-surface);
+  background: var(--yap-container-bg);
   border: 1px solid var(--yap-border);
   box-shadow: var(--yap-shadow);
   transition: box-shadow .3s, transform .3s var(--yap-ease);
@@ -921,7 +923,7 @@
   max-inline-size: 100%;
   padding: 10px 15px;
   border-radius: 4px var(--yap-radius) var(--yap-radius) var(--yap-radius);
-  background: var(--yap-surface-2);
+  background: var(--yap-card-bg, var(--yap-surface-2));
   border: 1px solid var(--yap-border);
 }
 

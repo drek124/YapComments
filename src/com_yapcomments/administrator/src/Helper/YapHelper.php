@@ -57,6 +57,8 @@ abstract class YapHelper
         'style'                => 'cards',
         'density'              => 'comfortable',
         'accent'               => '#6366f1',
+        'accent_2'             => '',
+        'card_bg'              => '',
         'radius'               => 14,
         'font'                 => 'inherit',
         'animations'           => 'full',
