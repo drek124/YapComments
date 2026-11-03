@@ -11,7 +11,7 @@
         <downloads>
             <downloadurl type="full" format="zip">https://github.com/drek124/YapComments/releases/download/v1.0.4/pkg_yapcomments_v1.0.4.zip</downloadurl>
         </downloads>
-        <sha512>b5986f9d6626aed7b5f6370d21f941f4e822bd986035aa228d778eb2ea09ef4865c8eb9601754ffb357909f61fc11b8bc55f28f97d6f28d511e687b12816aa10</sha512>
+        <sha512>d88921481dc38c48dedf2bd412ae499ee39306a91a295ce7eca8f66481ec6474e318ed89a7a6a548ddde5aabe98f46dda5e7494e5e9c270d2a523630c64fb949</sha512>
         <targetplatform name="joomla" version="(5|6)\..*"/>
         <php_minimum>8.1</php_minimum>
         <maintainer>drek124</maintainer>
