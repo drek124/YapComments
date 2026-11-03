@@ -4,7 +4,9 @@
  * Builds the installable package: php build.php
  *
  * Output: dist/pkg_yapcomments_v<version>.zip (component + content plugin)
- *         updates/pkg_yapcomments.xml (Joomla update feed for that zip)
+ *         updates/pkg_yapcomments.xml (Joomla update feed for that zip; only in the
+ *         release workflow, or with --feed, since a local zip's sha512 never matches
+ *         the one CI attaches to the release)
  *
  * @package     YapComments
  * @author      drek124 <https://github.com/drek124/>
@@ -72,6 +74,11 @@ foreach (glob($tmp . '/*') as $file) {
 rmdir($tmp);
 
 echo 'Built ' . $package . ' (' . round(filesize($package) / 1024, 1) . " KB)\n";
+
+if (getenv('GITHUB_ACTIONS') !== 'true' && !in_array('--feed', $argv, true)) {
+    echo "Skipped update feed (written by the release workflow; pass --feed to force)\n";
+    exit(0);
+}
 
 /*
  * Update feed read by Joomla's updater (see <updateservers> in pkg_yapcomments.xml).
