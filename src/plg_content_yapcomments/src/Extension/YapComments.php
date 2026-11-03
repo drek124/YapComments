@@ -13,18 +13,22 @@ namespace Drek124\Plugin\Content\YapComments\Extension;
 
 use Drek124\Component\YapComments\Administrator\Helper\YapHelper;
 use Drek124\Component\YapComments\Site\Helper\ContextResolver;
+use Drek124\Component\YapComments\Site\Helper\ItemRegistry;
 use Drek124\Component\YapComments\Site\Helper\ThreadRenderer;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Event\Content\AfterDisplayEvent;
 use Joomla\CMS\Event\Model\AfterDeleteEvent;
 use Joomla\CMS\Event\Model\PrepareFormEvent;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Database\ParameterType;
 use Joomla\Event\SubscriberInterface;
+use Joomla\Registry\Registry;
 
 /**
- * Shows YapComments threads below articles.
+ * Shows YapComments threads below articles and, optionally, below the main
+ * item of any other extension that fires onContentAfterDisplay.
  */
 final class YapComments extends CMSPlugin implements SubscriberInterface
 {
@@ -44,21 +48,42 @@ final class YapComments extends CMSPlugin implements SubscriberInterface
     }
 
     /**
-     * Append the thread to a single article page.
+     * Append the thread to a single article page, or to the main item of any
+     * other context listed in the plugin options (e.g. com_foo.item).
      */
     public function onContentAfterDisplay(AfterDisplayEvent $event): void
     {
-        $app   = $this->getApplication();
-        $input = $app->getInput();
-        $item  = $event->getItem();
+        $app     = $this->getApplication();
+        $input   = $app->getInput();
+        $item    = $event->getItem();
+        $context = (string) $event->getContext();
+        $id      = (int) ($item->id ?? 0);
 
-        if ($event->getContext() !== self::CONTEXT || !$app->isClient('site') || !$this->available()
-            || $input->getCmd('option') !== 'com_content' || $input->getCmd('view') !== 'article'
-            || (int) $input->getInt('id') !== (int) ($item->id ?? 0) || $input->getBool('print')) {
+        if ($id < 1 || !$app->isClient('site') || $input->getBool('print') || !$this->available()) {
             return;
         }
 
-        $resolved = ContextResolver::resolve(self::CONTEXT, (int) $item->id);
+        if ($context === self::CONTEXT) {
+            if ($input->getCmd('option') !== 'com_content' || $input->getCmd('view') !== 'article'
+                || (int) $input->getInt('id') !== $id) {
+                return;
+            }
+        } elseif ($this->isExtraContext($context) && $this->isMainItem($context, $id)) {
+            ItemRegistry::remember($context, $id, $this->describe($item));
+        } else {
+            return;
+        }
+
+        // Some views fire the event more than once for the same item.
+        static $done = [];
+
+        if (isset($done[$context . ':' . $id])) {
+            return;
+        }
+
+        $done[$context . ':' . $id] = true;
+
+        $resolved = ContextResolver::resolve($context, $id);
 
         if (!$resolved || $resolved->mode === ContextResolver::MODE_HIDDEN) {
             return;
@@ -99,19 +124,24 @@ final class YapComments extends CMSPlugin implements SubscriberInterface
     }
 
     /**
-     * Remove a deleted article's comments and votes.
+     * Remove a deleted article's (or other listed item's) comments and votes.
      */
     public function onContentAfterDelete(AfterDeleteEvent $event): void
     {
-        $item = $event->getItem();
+        $item    = $event->getItem();
+        $context = (string) $event->getContext();
 
-        if ($event->getContext() !== self::CONTEXT || !$this->params->get('delete_with_article', 1) || empty($item->id)) {
+        if (($context !== self::CONTEXT && !$this->isExtraContext($context))
+            || !$this->params->get('delete_with_article', 1) || empty($item->id)) {
             return;
         }
 
-        $db      = $this->getDatabase();
-        $id      = (int) $item->id;
-        $context = self::CONTEXT;
+        $db = $this->getDatabase();
+        $id = (int) $item->id;
+
+        if ($context !== self::CONTEXT) {
+            ItemRegistry::forget($context, $id);
+        }
 
         $sub = $db->createQuery()
             ->select($db->quoteName('id'))
@@ -135,6 +165,97 @@ final class YapComments extends CMSPlugin implements SubscriberInterface
                 ->bind(':ctx2', $context)
                 ->bind(':id2', $id, ParameterType::INTEGER)
         )->execute();
+    }
+
+    /**
+     * The "Other contexts" option: one per line, either exact
+     * ("com_foo.item") or a whole component ("com_foo.*").
+     *
+     * @return string[]
+     */
+    private function extraContexts(): array
+    {
+        static $list = null;
+
+        if ($list === null) {
+            $list = [];
+
+            foreach (preg_split('/[\s,]+/', (string) $this->params->get('contexts', '')) as $entry) {
+                $entry = strtolower(trim($entry));
+
+                if ($entry !== self::CONTEXT && preg_match('/^[a-z0-9_]+\.(?:[a-z0-9_]+|\*)$/', $entry)) {
+                    $list[] = $entry;
+                }
+            }
+        }
+
+        return $list;
+    }
+
+    private function isExtraContext(string $context): bool
+    {
+        if (!preg_match('/^[a-z0-9_]+\.[a-z0-9_]+$/', $context)) {
+            return false;
+        }
+
+        $component = strstr($context, '.', true);
+
+        foreach ($this->extraContexts() as $allowed) {
+            if ($allowed === $context || $allowed === $component . '.*') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Only the item the page is about: the request must belong to the
+     * context's component, and an "id" in the request must match the item.
+     * Keeps threads off list views, modules and related-item blocks.
+     */
+    private function isMainItem(string $context, int $id): bool
+    {
+        $input = $this->getApplication()->getInput();
+
+        if ($input->getCmd('option') !== strstr($context, '.', true)) {
+            return false;
+        }
+
+        $requested = (int) $input->getInt('id');
+
+        return $requested === 0 || $requested === $id;
+    }
+
+    /**
+     * What ItemRegistry needs to resolve the item later without its extension.
+     */
+    private function describe(object $item): array
+    {
+        $mode = '';
+
+        foreach (['attribs', 'params'] as $prop) {
+            if (!empty($item->$prop) && (\is_string($item->$prop) || \is_array($item->$prop) || \is_object($item->$prop))) {
+                $reg  = $item->$prop instanceof Registry ? $item->$prop : new Registry($item->$prop);
+                $mode = (string) $reg->get('yapcomments_mode', $mode);
+            }
+        }
+
+        $uri = clone Uri::getInstance();
+        $uri->delVar('ycp');
+        $uri->delVar('ycs');
+
+        $created = $item->created ?? $item->created_time ?? '';
+
+        return [
+            'title'     => (string) ($item->title ?? $item->name ?? ''),
+            'url'       => $uri->toString(['scheme', 'host', 'port', 'path', 'query']),
+            'language'  => (string) ($item->language ?? '') ?: '*',
+            'access'    => (int) ($item->access ?? 0),
+            'author_id' => (int) ($item->created_by ?? $item->created_user_id ?? 0),
+            'created'   => \is_string($created) ? $created : '',
+            'mode'      => \in_array($mode, [ContextResolver::MODE_OPEN, ContextResolver::MODE_LOCKED, ContextResolver::MODE_HIDDEN], true) ? $mode : '',
+        ];
     }
 
     private function available(): bool

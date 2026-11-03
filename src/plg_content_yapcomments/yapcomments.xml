@@ -27,6 +27,7 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+                <field name="contexts" type="textarea" rows="3" default="" filter="string" hint="com_foo.item" label="PLG_CONTENT_YAPCOMMENTS_CONTEXTS" description="PLG_CONTENT_YAPCOMMENTS_CONTEXTS_DESC" />
                 <field name="delete_with_article" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="PLG_CONTENT_YAPCOMMENTS_DELETE_WITH" description="PLG_CONTENT_YAPCOMMENTS_DELETE_WITH_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>

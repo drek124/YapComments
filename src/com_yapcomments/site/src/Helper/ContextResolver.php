@@ -29,6 +29,8 @@ use Joomla\Registry\Registry;
  * com_content articles are supported out of the box. Other extensions can
  * attach threads to their own items by listening to "onYapCommentsResolve"
  * and setting a "result" argument (an object with title, url, mode, ...).
+ * Without such a listener, items shown through the content plugin's extra
+ * contexts are resolved from ItemRegistry.
  */
 final class ContextResolver
 {
@@ -49,7 +51,7 @@ final class ContextResolver
         if (!\array_key_exists($key, self::$cache)) {
             self::$cache[$key] = $context === 'com_content.article'
                 ? self::article($id, $user)
-                : self::external($context, $id);
+                : (self::external($context, $id) ?? ItemRegistry::find($context, $id, $user));
 
             if (self::$cache[$key] !== null) {
                 self::applyAutoClose(self::$cache[$key]);
