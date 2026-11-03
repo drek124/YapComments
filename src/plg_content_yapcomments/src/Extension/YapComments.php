@@ -13,17 +13,12 @@ namespace Drek124\Plugin\Content\YapComments\Extension;
 
 use Drek124\Component\YapComments\Administrator\Helper\YapHelper;
 use Drek124\Component\YapComments\Site\Helper\ContextResolver;
-use Drek124\Component\YapComments\Site\Helper\Icons;
 use Drek124\Component\YapComments\Site\Helper\ThreadRenderer;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Event\Content\AfterDisplayEvent;
-use Joomla\CMS\Event\Content\BeforeDisplayEvent;
 use Joomla\CMS\Event\Model\AfterDeleteEvent;
 use Joomla\CMS\Event\Model\PrepareFormEvent;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\Router\Route;
-use Joomla\Component\Content\Site\Helper\RouteHelper;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Database\ParameterType;
 use Joomla\Event\SubscriberInterface;
@@ -39,14 +34,10 @@ final class YapComments extends CMSPlugin implements SubscriberInterface
 
     private const CONTEXT = 'com_content.article';
 
-    /** @var array<int, int> */
-    private array $counts = [];
-
     public static function getSubscribedEvents(): array
     {
         return [
             'onContentAfterDisplay'  => 'onContentAfterDisplay',
-            'onContentBeforeDisplay' => 'onContentBeforeDisplay',
             'onContentPrepareForm'   => 'onContentPrepareForm',
             'onContentAfterDelete'   => 'onContentAfterDelete',
         ];
@@ -80,40 +71,6 @@ final class YapComments extends CMSPlugin implements SubscriberInterface
         if ($html !== '') {
             $event->addResult($html);
         }
-    }
-
-    /**
-     * A small comment counter on blog and featured listings.
-     */
-    public function onContentBeforeDisplay(BeforeDisplayEvent $event): void
-    {
-        $item = $event->getItem();
-
-        if (!\in_array($event->getContext(), ['com_content.category', 'com_content.featured'], true)
-            || !$this->params->get('show_counts', 1) || !$this->getApplication()->isClient('site')
-            || empty($item->id) || !$this->available()) {
-            return;
-        }
-
-        $resolved = ContextResolver::resolve(self::CONTEXT, (int) $item->id);
-
-        if (!$resolved || $resolved->mode === ContextResolver::MODE_HIDDEN) {
-            return;
-        }
-
-        $this->loadComponentLanguage();
-
-        $count = $this->count((int) $item->id);
-        $url   = Route::_(RouteHelper::getArticleRoute($item->slug ?? $item->id, $item->catid ?? 0, $item->language ?? '*')) . '#comments';
-
-        $wa = $this->getApplication()->getDocument()->getWebAssetManager();
-        $wa->getRegistry()->addExtensionRegistryFile('com_yapcomments');
-        $wa->useStyle('com_yapcomments.site');
-
-        $event->addResult(
-            '<a class="yap-count-badge" href="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '">'
-            . Icons::svg('chat') . '<span>' . Text::plural('COM_YAPCOMMENTS_N_COMMENTS', $count) . '</span></a>'
-        );
     }
 
     /**
@@ -183,16 +140,6 @@ final class YapComments extends CMSPlugin implements SubscriberInterface
     private function available(): bool
     {
         return ComponentHelper::isEnabled('com_yapcomments') && YapHelper::params()->get('enabled', 1);
-    }
-
-    private function count(int $id): int
-    {
-        if (!isset($this->counts[$id])) {
-            $model             = $this->getApplication()->bootComponent('com_yapcomments')->getMVCFactory()->createModel('Thread', 'Site', ['ignore_request' => true]);
-            $this->counts[$id] = $model->countPublished(self::CONTEXT, $id);
-        }
-
-        return $this->counts[$id];
     }
 
     private function loadComponentLanguage(): void
